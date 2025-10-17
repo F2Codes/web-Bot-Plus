@@ -1,0 +1,231 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BotPlus — Telegram Chatbot Builder</title>
+  <meta name="description" content="BotPlus — Build Telegram chatbots for developers using OpenAI. Fast, secure and customizable." />
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --navy-900: #001219;
+      --navy-800: #001f2d;
+      --petrol-700: #003b4a;
+      --petrol-600: #02506b;
+      --petrol-500: #0277a8;
+      --sky-400: #38a3db;
+      --ice-200: #c9f0ff;
+      --glass: rgba(255,255,255,0.06);
+      --glass-2: rgba(255,255,255,0.04);
+      --accent: #00b7ff;
+      --radius: 16px;
+      --max-w: 1200px;
+      color-scheme: dark;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:'Poppins',system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(2,112,168,0.10), transparent), linear-gradient(180deg,var(--navy-900) 0%, var(--petrol-600) 100%);
+      color:#e8f6ff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding:24px;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .container{width:100%;max-width:var(--max-w);}/* NAV */
+header{
+  display:flex;align-items:center;justify-content:space-between;padding:18px;border-radius:12px;background:linear-gradient(180deg,var(--glass),transparent);backdrop-filter: blur(6px);box-shadow: 0 6px 30px rgba(0,0,0,0.45);
+}
+.brand{display:flex;align-items:center;gap:14px}
+.logo{
+  width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--petrol-500),var(--sky-400));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;color:var(--navy-900);box-shadow:0 6px 18px rgba(2,48,80,0.45);
+}
+.brand h1{margin:0;font-size:20px;letter-spacing:0.4px}
+nav{display:flex;gap:12px;align-items:center}
+.nav-link{padding:8px 12px;border-radius:10px;text-decoration:none;color:var(--ice-200);font-weight:600}
+.btn-primary{background:linear-gradient(90deg,var(--accent),var(--sky-400));padding:10px 16px;border-radius:12px;color:#00222b;font-weight:700;text-decoration:none;box-shadow:0 8px 30px rgba(3,102,150,0.18)}
+.ghost{padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);color:var(--ice-200);text-decoration:none}
+
+/* HERO */
+.hero{display:grid;grid-template-columns:1fr 420px;gap:28px;padding:40px 20px;margin-top:22px}
+.card{background:linear-gradient(180deg,var(--glass-2),transparent);padding:28px;border-radius:20px;box-shadow: 0 12px 40px rgba(2,28,38,0.55);}
+.kicker{display:inline-block;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.03);font-weight:600;margin-bottom:12px}
+h2{font-size:34px;margin:6px 0 12px}
+p.lead{color:rgba(230,245,255,0.9);font-size:16px;opacity:0.95}
+.features{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.feature{flex:1 1 120px;padding:12px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);text-align:center}
+.hero-right{display:flex;flex-direction:column;gap:12px;align-items:stretch}
+
+/* sample bot preview */
+.mock{
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;padding:14px;min-height:420px;display:flex;flex-direction:column;gap:8px;justify-content:flex-end;position:relative;overflow:hidden
+}
+.msg{max-width:78%;padding:12px 14px;border-radius:12px;background:linear-gradient(180deg,var(--petrol-500),var(--petrol-600));color:#e8fbff;font-weight:500}
+.msg.me{margin-left:auto;background:linear-gradient(180deg,var(--ice-200),#dff8ff);color:var(--navy-900);font-weight:600}
+.controls{display:flex;gap:8px}
+
+/* CODE CARD */
+pre{background:rgba(0,0,0,0.18);padding:12px;border-radius:10px;overflow:auto;font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;color:#dff8ff}
+
+/* CTA */
+.cta{display:flex;gap:12px;align-items:center;margin-top:18px}
+
+/* GRID SECTIONS */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:26px}
+.grid .card{padding:22px}
+.big{grid-column:span 2}
+
+footer{margin-top:26px;padding:20px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);display:flex;justify-content:space-between;align-items:center}
+
+/* RESPONSIVE */
+@media (max-width:980px){
+  .hero{grid-template-columns:1fr;}
+  .grid{grid-template-columns:1fr;}
+  .mock{min-height:260px}
+  header{flex-direction:column;gap:12px;align-items:flex-start}
+}
+
+/* SUBTLE ANIM */
+.logo{transform:translateY(0);animation:float 6s ease-in-out infinite}
+@keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
+.glow{position:relative}
+.glow:after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:0 40px 120px rgba(0,183,255,0.06);pointer-events:none}
+
+/* small helpers */
+.muted{opacity:0.8;color:rgba(220,240,255,0.75);}
+code.inline{background:rgba(255,255,255,0.03);padding:4px 8px;border-radius:6px}
+
+  </style>
+</head>
+<body>
+  <div class="container"><header>
+  <div class="brand">
+    <div class="logo">BP</div>
+    <div>
+      <h1>BotPlus</h1>
+      <div class="muted" style="font-size:12px">Telegram Chatbot builder • Powered by OpenAI</div>
+    </div>
+  </div>
+  <nav>
+    <a class="nav-link" href="#features">Features</a>
+    <a class="nav-link" href="#how">How it works</a>
+    <a class="nav-link" href="#pricing">Pricing</a>
+    <a class="btn-primary" href="#get">Get Started</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="card">
+    <span class="kicker">For Developers</span>
+    <h2>Ship a smart Telegram bot in minutes — <span style="color:var(--accent)">without sweating AI infra</span></h2>
+    <p class="lead">BotPlus helps programmers scaffold, customize and deploy Telegram chatbots that use OpenAI for natural language understanding, code help, and developer workflows. From quick prototypes to production-ready assistants — everything in a sleek, dev-first package.</p>
+
+    <div class="features" id="features">
+      <div class="feature">
+        <strong>Easy SDKs</strong>
+        <div class="muted">Node • Python • Go</div>
+      </div>
+      <div class="feature">
+        <strong>Secure</strong>
+        <div class="muted">API key vault & scoped tokens</div>
+      </div>
+      <div class="feature">
+        <strong>Custom prompts</strong>
+        <div class="muted">Tailorable developer personas</div>
+      </div>
+    </div>
+
+    <div class="cta">
+      <a class="btn-primary" href="#how">Create your bot</a>
+      <a class="ghost" href="#pricing">See pricing</a>
+    </div>
+
+    <div style="margin-top:18px;font-size:14px;" class="muted">Preview — light sample conversation</div>
+    <div style="margin-top:10px;display:flex;gap:12px;align-items:center">
+      <div style="flex:1">
+        <pre aria-hidden="true">// Quick example: Node.js
+
+const bot = new BotPlus({ apiKey: process.env.BOTPLUS_KEY }); await bot.createTelegram({ name: 'DevHelper', model: 'gpt-4o-mini', features: ['code-assist','deploy-scripts'] }); </pre> </div> </div> </div>
+
+<aside class="hero-right">
+    <div class="card mock">
+      <div style="display:flex;gap:8px;align-items:center"><div style="width:10px;height:10px;border-radius:50%;background:#7ef0ff"></div><div style="opacity:0.9">BotPlus · DevHelper</div></div>
+
+      <div style="flex:1"></div>
+
+      <div class="msg">Hey! send me a repo link or ask for a deploy script.</div>
+      <div class="msg me">How do I deploy a Node bot to Render?</div>
+      <div class="msg">I recommend a Docker image + managed service. Want a sample Dockerfile?</div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div class="muted">Online • 1 connected</div>
+        <div class="controls">
+          <button class="ghost">Open Console</button>
+          <button class="btn-primary">Invite to Telegram</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin:6px 0 8px">Why BotPlus?</h3>
+      <p class="muted" style="font-size:14px">Built for programmers who want control — extensible hooks, prompt versioning, and prebuilt integrations for deployment and CI/CD.</p>
+      <div style="margin-top:12px;display:flex;gap:8px">
+        <a class="btn-primary" href="#get">Try free</a>
+        <a class="ghost" href="#how">Docs</a>
+      </div>
+    </div>
+  </aside>
+</section>
+
+<section class="grid">
+  <div class="card big">
+    <h3 id="how">How it works</h3>
+    <ol style="padding-left:18px;margin-top:12px">
+      <li>Sign up and connect your OpenAI key or use our hosted inference (optional).</li>
+      <li>Pick a template (Support bot, CI helper, Code reviewer) and customize prompts.</li>
+      <li>Connect Telegram token and deploy instantly — webhooks or polling supported.</li>
+    </ol>
+    <p class="muted">BotPlus provides a CLI and SDK so you can automate bot creation in scripts or CI pipelines. Everything is logged, versioned and auditable.</p>
+  </div>
+
+  <div class="card">
+    <h4>Security</h4>
+    <p class="muted">API secrets are encrypted, role-based access control, and traffic filtering for safety and compliance.</p>
+  </div>
+
+  <div class="card">
+    <h4>Integrations</h4>
+    <p class="muted">GitHub, GitLab, Render, Heroku, Docker registries and more. Webhook-first architecture for easy hooking into your pipelines.</p>
+  </div>
+
+  <div class="card">
+    <h4 id="pricing">Pricing</h4>
+    <p style="margin:6px 0">Free tier: 3 bots • Starter: $12/mo • Pro: $49/mo — contact sales for enterprise.</p>
+    <a class="btn-primary" href="#get">Create account</a>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <strong>BotPlus</strong>
+    <div class="muted" style="font-size:13px">Made for devs • © BotPlus 2025</div>
+  </div>
+  <div class="muted">Designed with ❤️ in blue</div>
+</footer>
+
+  </div>  <script>
+    // Small interactive touches
+    document.querySelectorAll('.btn-primary').forEach(b=>b.addEventListener('click', e=>{
+      e.preventDefault();
+      const target = (e.currentTarget.getAttribute('href')||'#get').replace('#','');
+      const el = document.getElementById(target);
+      if(el) el.scrollIntoView({behavior:'smooth',block:'center'})
+      else alert('Getting started — this is a static demo.');
+    }));
+  </script></body>
+</html>
